@@ -33,6 +33,16 @@ Install with:
 pip install matplotlib numpy
 ```
 
+## How to run
+
+```bash
+python 01_rna_world_simulation.py
+```
+For scripts with bokeh suffix in the name:
+```bash
+python -m bokeh serve --show 10_rna_spatial_simulation_dashboard_bokeh.py
+```
+
 ## Screenshot
 
 ![RNA Grid Simulation Heatmap](images/heatmap_example.png)
