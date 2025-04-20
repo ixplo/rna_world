@@ -1,0 +1,21 @@
+
+Discover how life might have begun — not with DNA or proteins, but with RNA. In this video, we explore the RNA world hypothesis using simple Python simulations that model self-replicating molecules, mutations, spatial environments, and more.
+
+Chapters:
+0:00 Intro – The Origin of Life
+0:45 What is the RNA World?
+2:00 Python Simulation: Simple RNA Evolution
+3:30 Grid Simulation: RNA in Space
+5:00 Could This Lead to Life?
+6:00 Outro
+
+GitHub repo (code): [INSERT REPO LINK HERE]
+Try the code: rna_world_simulation_english.py and rna_spatial_simulation.py
+
+Subscribe for more science + code content!
+
+Tags: #RNAWorld #OriginOfLife #PythonSimulation #Astrobiology #ArtificialLife #Biogenesis #ScienceExplained #CodingBiology
+
+––––––––––––––––––––––––––––––
+Music: Ambient background – calm, curious, sci-fi vibe
+––––––––––––––––––––––––––––––

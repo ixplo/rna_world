@@ -1,0 +1,20 @@
+
+1
+00:00:00,000 --> 00:00:06,000
+Four billion years ago… Earth was a boiling wasteland.
+
+2
+00:00:06,000 --> 00:00:12,000
+No DNA. No proteins. But from this chaos, life may have emerged—through RNA.
+
+3
+00:00:45,000 --> 00:00:52,000
+The RNA world hypothesis suggests that before DNA and proteins, life was based solely on RNA.
+
+4
+00:02:00,000 --> 00:02:07,000
+Let’s simulate it in Python. We create RNA molecules with random sequences.
+
+5
+00:02:07,000 --> 00:02:14,000
+If the sequence contains 'AUG', it can replicate, with a small chance of mutation.

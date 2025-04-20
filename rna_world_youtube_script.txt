@@ -1,0 +1,57 @@
+
+Title: How Life Began: Simulating the RNA World in Python
+
+---
+
+[Intro | 0:00–0:45]
+Visuals: Space → early Earth → volcanic oceans → deep sea vents
+Voiceover:
+"Four billion years ago… Earth was a boiling wasteland. No DNA. No proteins. But from this chaos, life may have emerged—through RNA. A molecule that could store information… and replicate itself."
+Overlay: “The RNA World Hypothesis — Simulated”
+
+---
+
+[Scene 1: What is the RNA World? | 0:45–2:00]
+Visuals: Diagram: DNA, RNA, proteins → Highlight RNA’s dual role
+Voiceover:
+"The RNA world hypothesis suggests that before DNA and proteins, life was based solely on RNA. RNA could act both as a genetic blueprint and as a catalyst — a ribozyme. In other words, a molecule that could copy itself."
+
+---
+
+[Scene 2: Our First Simulation | 2:00–3:30]
+Visuals: Open Python IDE → show `rna_world_simulation_english.py`
+Voiceover:
+"Let’s simulate it in Python. We create RNA molecules with random sequences. If the sequence contains 'AUG', it can replicate, with a small chance of mutation."
+Visuals: Show population growth graph
+Voiceover:
+"As generations pass, ribozymes multiply. Evolution begins."
+
+---
+
+[Scene 3: Life in Space (2D Grid Simulation) | 3:30–5:00]
+Visuals: Show `rna_spatial_simulation.py` — heatmap appears
+Voiceover:
+"Now we give RNA a place to live — a 2D world. Each cell can hold molecules. When one replicates, its offspring may stay nearby… or migrate."
+Visual:
+"Over time, life clusters. Some areas thrive, others fade. It's simple… but eerily lifelike."
+
+---
+
+[Scene 4: How This Could Lead to Life | 5:00–6:00]
+Visuals: Show transition from RNA → DNA → proteins → modern cells
+Voiceover:
+"Eventually, RNA gave way to DNA, proteins, and complex life. But that first spark — a molecule that could copy itself — may have started everything."
+
+---
+
+[Outro | 6:00–6:30]
+Visual: Face / channel logo / subscribe animation
+Voiceover:
+"Want to see more simulations — maybe RNA evolving strategies, dying, or forming ecosystems? Hit like, subscribe, and drop a comment. The origin of life is just the beginning."
+
+---
+
+Extras:
+- Add subtitles
+- Export animations as .gif for screen inserts
+- Background music: subtle, evolving, ambient
