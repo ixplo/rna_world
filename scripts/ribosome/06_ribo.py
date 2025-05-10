@@ -1,6 +1,7 @@
 import numpy as np
 import matplotlib.pyplot as plt
 from matplotlib import patches, animation
+from matplotlib.patches import Circle
 
 speed = 1.0
 belt_dx = 0.05 * speed
@@ -22,6 +23,16 @@ spawn_x = belt_len + (y_start - belt_y) * (belt_dx / fall_vy) - codon_w / 2 + of
 landing_x = belt_len / 2 - codon_w / 2 + offset
 N_land = int((y_start - belt_y) / fall_vy)
 vxfly = (spawn_x - landing_x) / N_land
+
+
+# Amino acid sphere radius
+amino_acid_radius = codon_w * 0.2
+aa_color = 'gold'
+chain_padding = amino_acid_radius * 0.5
+# more diverse, non-repeating colors for amino acid spheres
+# generate diverse colors and shuffle their order randomly
+sphere_colors = plt.cm.hsv(np.linspace(0, 1, num_codons))
+np.random.shuffle(sphere_colors)
 
 fig, ax = plt.subplots(figsize=(12, 4))
 ax.set_aspect('equal')
@@ -75,12 +86,23 @@ for i in range(num_codons):
 
 shapes = []
 
+# store peptide chain circle patches
+chain_circles = []
+
 def get_color_for_position(x):
     for codon in codons:
         codon_xs = codon.get_xy()[:, 0]
         if np.min(codon_xs) <= x <= np.max(codon_xs):
             return codon.get_facecolor()
     return 'gray'
+
+# Helper for codon index based on x
+def get_index_for_position(x):
+    for i, codon in enumerate(codons):
+        xs = codon.get_xy()[:, 0]
+        if np.min(xs) <= x <= np.max(xs):
+            return i
+    return 0
 
 def rotate(verts, angle_deg, center):
     angle = np.radians(angle_deg)
@@ -122,18 +144,28 @@ def make_trna_patch(xc, yc, color='gray', angle=0):
     return patches.Polygon(verts, closed=True, facecolor=color,
                            edgecolor='black', zorder=5)
 
+# Amino acid patch (sphere) above tRNA
+
 def spawn_shape():
     predicted_shift = belt_dx * N_land
     target_x = landing_x + predicted_shift + codon_w / 2
-    color = get_color_for_position(target_x)
-    p = make_trna_patch(spawn_x, y_start, color)
+    codon_idx = get_index_for_position(target_x)
+    trna_color = get_color_for_position(target_x)
+    aa_color_flight = sphere_colors[codon_idx]
+    p = make_trna_patch(spawn_x, y_start, trna_color)
+    # attached amino acid sphere with distinct color
+    aa = Circle((spawn_x, y_start + codon_h * 1.6 + amino_acid_radius), radius=amino_acid_radius,
+                facecolor=aa_color_flight, edgecolor='black', zorder=6)
     ax.add_patch(p)
+    ax.add_patch(aa)
     shapes.append({
         'patch': p,
+        'aa': aa,
         'x': spawn_x,
         'y': y_start,
         'state': 'flying',
-        'color': color,
+        'color': trna_color,
+        'aa_color': aa_color_flight,
         'angle': 0
     })
 
@@ -154,17 +186,29 @@ def update(frame):
                 s['state'] = 'landed'
                 s['y'] = belt_y
                 s['x'] = landing_x
+                # push existing chain circles up by one diameter
+                for circ in chain_circles:
+                    cx, cy = circ.center
+                    circ.center = (cx, cy + 2 * amino_acid_radius)
+                # position new sphere at arrival level
+                s['aa'].center = (landing_x, belt_y + codon_h * 1.6 + amino_acid_radius)
+                chain_circles.append(s['aa'])
+                del s['aa']
         elif s['state'] == 'landed':
             s['x'] -= belt_dx
         elif s['state'] == 'detached':
             s['y'] -= fall_vy
             s['angle'] += 2
         s['patch'].set_xy(make_trna_patch(s['x'], s['y'], s['color'], s['angle']).get_xy())
+        # update attached amino acid sphere position
+        if 'aa' in s:
+            s['aa'].center = (s['x'], s['y'] + codon_h * 1.6 + amino_acid_radius)
     landed = [s for s in shapes if s['state'] == 'landed']
     if len(landed) > 2:
         landed[0]['state'] = 'detached'
     shapes[:] = [s for s in shapes if not (s['state'] == 'detached' and s['y'] < -1)]
-    return codons + [s['patch'] for s in shapes]
+
+    return codons + [s['patch'] for s in shapes] + [s['aa'] for s in shapes if 'aa' in s] + chain_circles
 
 anim = animation.FuncAnimation(fig, update, frames=1000, interval=interval, blit=True)
 plt.show()
